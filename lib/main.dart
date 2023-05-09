@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'fun_star_rating_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,105 +12,220 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+  Widget build(BuildContext context) => Scaffold(
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                _buildProductStatsSection(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 40.0,
+                  ),
+                  child: _buildProductDescription(),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Positioned(
+              top: 375,
+              left: 20,
+              child: _buildQuantityButton(),
             ),
           ],
         ),
+      );
+
+  Widget _buildQuantityButton() {
+    const space = SizedBox(
+      width: 8.0,
+    );
+    final removeIcon = IconButton(
+      onPressed: () {},
+      icon: const Icon(
+        Icons.remove,
+        color: Colors.white,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+    final addIcon = IconButton(
+      onPressed: () {},
+      icon: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.orange.shade900,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          removeIcon,
+          space,
+          const Text(
+            "2",
+            style: TextStyle(color: Colors.white),
+          ),
+          space,
+          addIcon
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProductStatsSection() => Stack(
+        children: [
+          Container(
+            height: 400,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(
+                  30,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 100,
+            left: 20,
+            child: _buildStatsWidget(),
+          )
+        ],
+      );
+
+  Widget _buildProductDescription() => Column(
+        children: [
+          _buildProductDescriptionHeader(),
+          const SizedBox(
+            height: 24.0,
+          ),
+          const SizedBox(
+            height: 300,
+            child: SingleChildScrollView(
+              child: Text(
+                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                style:
+                    TextStyle(fontSize: 16.0, height: 1.5, color: Colors.grey),
+              ),
+            ),
+          )
+        ],
+      );
+
+  Widget _buildProductDescriptionHeader() => Row(
+        children: [
+          const Text(
+            "Orange Juice",
+            style: TextStyle(
+              fontSize: 28.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(
+            width: 32.0,
+          ),
+          _buildRatingWidget(),
+        ],
+      );
+
+  Widget _buildRatingWidget() => FunStarRatingWidget(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(
+            5,
+            (index) => const Icon(
+              Icons.star,
+              color: Colors.yellow,
+            ),
+          ),
+        ),
+      );
+
+  Widget _buildStatsWidget() {
+    const space = SizedBox(
+      height: 32.0,
+    );
+    return Column(
+      children: [
+        _buildStats(
+          title: "Carbohydrate",
+          mainText: "10%",
+          secondaryText: "20g",
+        ),
+        space,
+        _buildStats(
+          title: "Water",
+          mainText: "2.20%",
+        ),
+        space,
+        _buildStats(
+          title: "Price",
+          mainText: "9.50",
+          secondaryText: "USD",
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStats({
+    required String title,
+    required String mainText,
+    String? secondaryText,
+  }) {
+    final descr = Text(
+      title,
+      style: const TextStyle(color: Colors.grey),
+    );
+    final mT = Text(
+      mainText,
+      style: const TextStyle(
+        fontSize: 32.0,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    const space = SizedBox(
+      width: 4.0,
+    );
+    final sT = Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: Text(
+        secondaryText ?? "",
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        descr,
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            mT,
+            space,
+            if (secondaryText != null) sT,
+          ],
+        )
+      ],
     );
   }
 }
