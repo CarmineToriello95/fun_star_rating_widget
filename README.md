@@ -1,16 +1,9 @@
 # fun_star_rating_widget
 
-A new Flutter project.
+Fun star rating widget UI recreated in Flutter
 
-## Getting Started
+Fun star rating widget inspired by [this animation](https://dribbble.com/shots/14344977-Fun-star-rating)
 
-This project is a starting point for a Flutter application.
+Design inspired by [this design](https://dribbble.com/shots/10029626-Online-Food-App).
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="assets/demo/demo.gif" alt="drawing" width="200">
